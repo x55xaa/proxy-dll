@@ -24,7 +24,7 @@ import logging
 from pathlib import Path, PureWindowsPath
 from typing import Optional, override
 
-from ..modules import metadata
+from ..modules import metadata, pe
 from ..modules.parsing.parsers import MainArgumentParserTemplate
 
 
@@ -73,15 +73,6 @@ class MainArgumentParser(MainArgumentParserTemplate):
             type=Path,
         )
 
-        self.add_argument(
-            '-p', '--path',
-            action='store',
-            dest='dll_path',
-            help='mock the path of the source DLL',
-            metavar='path',
-            type=PureWindowsPath,
-        )
-
     def _extend_subparsers(self) -> None:
         pass
 
@@ -93,6 +84,14 @@ class MainArgumentParser(MainArgumentParserTemplate):
     ) -> Namespace:
 
         namespace = super().parse_args(args=args, namespace=namespace)
+
+        namespace.dll_path = ''
+        namespace.exported_symbols = []
+
+        if namespace.source_dll:
+            namespace.dll_path = namespace.source_dll
+            namespace.exported_symbols = pe.list_exported_symbols(namespace.source_dll)
+
         # arguments = vars(namespace)
 
         return namespace

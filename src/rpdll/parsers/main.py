@@ -21,6 +21,7 @@ from argparse import (
 )
 from collections.abc import Sequence
 import logging
+from pathlib import Path, PureWindowsPath
 from typing import Optional, override
 
 from ..modules import metadata
@@ -54,7 +55,32 @@ class MainArgumentParser(MainArgumentParserTemplate):
         )
 
     def _extend_arguments(self) -> None:
-        pass
+        self.add_argument(
+            'project',
+            action='store',
+            help='rust project folder name',
+            type=Path,
+        )
+
+        source_group = self.add_mutually_exclusive_group(required=True)
+
+        source_group.add_argument(
+            '-d', '--dll',
+            action='store',
+            dest='source_dll',
+            help='extract exported functions from this DLL',
+            metavar='path',
+            type=Path,
+        )
+
+        self.add_argument(
+            '-p', '--path',
+            action='store',
+            dest='dll_path',
+            help='mock the path of the source DLL',
+            metavar='path',
+            type=PureWindowsPath,
+        )
 
     def _extend_subparsers(self) -> None:
         pass

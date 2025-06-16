@@ -34,10 +34,20 @@ ENVIRONMENT = Environment(
 
 
 class BuildRsTemplateParameters(TypedDict):
-    """Parameters accepted by the `build` template."""
+    """Parameters accepted by the `build.rs` template."""
 
     exported_symbols: list[tuple[str, int]]
     dll_path: PureWindowsPath
+
+
+class ConfigRsTemplateParameters(TypedDict):
+    """Parameters accepted by the `config.rs` template."""
+
+    package_name: str
+
+
+class LibRsTemplateParameters(TypedDict):
+    """Parameters accepted by the `config.rs` template."""
 
 
 def get(name: str) -> Template:

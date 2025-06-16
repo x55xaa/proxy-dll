@@ -18,7 +18,7 @@
 
 from importlib import resources
 from importlib.resources.abc import Traversable
-from pathlib import PureWindowsPath, PurePosixPath
+from pathlib import PureWindowsPath
 from typing import TypedDict
 
 from jinja2 import Environment, FileSystemLoader, Template

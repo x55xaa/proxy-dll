@@ -18,11 +18,11 @@ In this guide you will get an overview of the contribution workflow from opening
 
 ### Create a new issue
 
-If you spot a problem, [search if an issue already exists](https://docs.github.com/en/github/searching-for-information-on-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, you can open a new issue using a relevant [issue form](https://github.com/x55xaa/python-tool/issues/new/choose).
+If you spot a problem, [search if an issue already exists](https://docs.github.com/en/github/searching-for-information-on-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, you can open a new issue using a relevant [issue form](https://github.com/x55xaa/proxy-dll/issues/new/choose).
 
 ### Solve an issue
 
-Scan through the [issues](https://github.com/x55xaa/python-tool/issues) to find one that interests you. You can narrow down the search using `labels` as filters.
+Scan through the [issues](https://github.com/x55xaa/proxy-dll/issues) to find one that interests you. You can narrow down the search using `labels` as filters.
 
 
 ## Making changes

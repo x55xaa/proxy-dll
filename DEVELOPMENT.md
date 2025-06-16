@@ -13,8 +13,8 @@ The lowest supported Python version for my projects is _usually_ 3.12, but don't
 To install the package locally, clone the repository and run `pip install`:
 
 ```bash
-$ git clone https://github.com/x55xaa/python-tool.git
-$ cd python-tool
+$ git clone https://github.com/x55xaa/proxy-dll.git
+$ cd proxy-dll
 $ pip install .
 ```
 

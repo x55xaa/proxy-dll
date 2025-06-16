@@ -1,5 +1,5 @@
 
-# 📦 python-tool
+# 📦 proxy-dll
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 ![Python version: 3.12+](https://img.shields.io/badge/python-3.12+-blue)
@@ -42,5 +42,5 @@ Or by invoking the `tool` [console script](https://setuptools.pypa.io/en/latest/
 
 ## Documentation
 
-- [Official Documentation](https://x55xaa.github.io/python-tool)
-- [CHANGELOG](https://github.com/x55xaa/python-tool/blob/main/CHANGELOG.md)
+- [Official Documentation](https://x55xaa.github.io/proxy-dll)
+- [CHANGELOG](https://github.com/x55xaa/proxy-dll/blob/main/CHANGELOG.md)

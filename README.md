@@ -8,36 +8,27 @@
 
 ## Overview
 
-This project is a template for creating Python packages that follows the guidelines contained in [PEP 621](https://peps.python.org/pep-0621).
-It uses a `pyproject.toml` file to store build system requirements and package information.
+This package simplifies the creation of a [proxy DLL](https://www.ired.team/offensive-security/persistence/dll-proxying-for-persistence) in Rust.
 
-
-## Structure
-
-- `.github/worflows` contains GitHub actions used for building, testing, and publishing.
-- `docs` contains the package documentation, generated using Sphinx.
-- `src` contains the source code of the package.
-- `tests` contains pytest unit tests.
 
 ## Installation
 
-Install the package locally with `pip install`:
+Install the package from PyPI by running:
 
 ```bash
-$ pip install .
+$ pip install rpdll
 ```
 
 
 ## Usage
 
-This package offers a basic CLI to play around with.
-It can be launched by running:
+To generate the Rust project folder, use the `rpdll` utility:
 
 ```bash
-$ python -m tool
+$ rpdll proxy -l target.dll
 ```
 
-Or by invoking the `tool` [console script](https://setuptools.pypa.io/en/latest/userguide/entry_point.html#console-scripts).
+
 
 
 ## Documentation

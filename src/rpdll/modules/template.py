@@ -33,7 +33,7 @@ ENVIRONMENT = Environment(
 )
 
 
-class BuildTemplateParameters(TypedDict):
+class BuildRsTemplateParameters(TypedDict):
     """Parameters accepted by the `build` template."""
 
     exported_symbols: list[tuple[str, int]]

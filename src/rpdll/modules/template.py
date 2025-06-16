@@ -18,7 +18,7 @@
 
 from importlib import resources
 from importlib.resources.abc import Traversable
-from pathlib import PureWindowsPath
+from pathlib import PureWindowsPath, PurePosixPath
 from typing import TypedDict
 
 from jinja2 import Environment, FileSystemLoader, Template
@@ -63,3 +63,16 @@ def get(name: str) -> Template:
     """
 
     return ENVIRONMENT.get_template(f'{name}.jinja' if not name.endswith('.jinja') else name)
+
+
+def enum() -> list[str]:
+    """Lists all available templates."""
+
+    available_templates = (
+        PurePosixPath(template) for template in ENVIRONMENT.list_templates()
+    )
+
+    return [
+        template_path.as_posix().split('.', maxsplit=1)[0]
+        for template_path in available_templates
+    ]

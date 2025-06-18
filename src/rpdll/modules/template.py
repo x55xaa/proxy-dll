@@ -18,8 +18,8 @@
 
 from importlib import resources
 from importlib.resources.abc import Traversable
-from pathlib import PureWindowsPath, PurePosixPath
-from typing import TypedDict
+from pathlib import Path, PurePosixPath, PureWindowsPath
+from typing import Any, TypedDict
 
 from jinja2 import Environment, FileSystemLoader, Template
 
@@ -73,6 +73,6 @@ def enum() -> list[str]:
     )
 
     return [
-        template_path.as_posix().split('.', maxsplit=1)[0]
+        template_path.as_posix().rsplit('.', maxsplit=1)[0]
         for template_path in available_templates
     ]

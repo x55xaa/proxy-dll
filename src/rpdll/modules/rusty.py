@@ -18,13 +18,14 @@
 
 from pathlib import Path
 import subprocess
+from subprocess import PIPE
 
 
 def is_cargo_installed() -> bool:
     """Checks if cargo is installed."""
 
     try:
-        subprocess.run(['cargo', '--version'], check=True)
+        subprocess.run(['cargo', '--version'], check=True, stderr=PIPE, stdout=PIPE)
         return True
     except subprocess.CalledProcessError:
         return False

@@ -29,6 +29,7 @@ dependencies = [
     "colorama",
     "jinja2",
     "pefile",
+    "toml",
 ]
 dynamic = ["version"]
 

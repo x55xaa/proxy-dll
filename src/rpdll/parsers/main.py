@@ -26,6 +26,7 @@ from typing import Optional, override
 
 from ..modules import metadata, pe
 from ..modules.parsing.parsers import MainArgumentParserTemplate
+from . import types
 
 
 logger = logging.getLogger(__name__)
@@ -59,7 +60,7 @@ class MainArgumentParser(MainArgumentParserTemplate):
             'project',
             action='store',
             help='rust project folder name',
-            type=Path,
+            type=types.absolute_path,
         )
 
         source_group = self.add_mutually_exclusive_group(required=True)

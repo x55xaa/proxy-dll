@@ -21,7 +21,7 @@ from argparse import (
 )
 from collections.abc import Sequence
 import logging
-from pathlib import Path, PureWindowsPath
+from pathlib import Path
 from typing import Optional, override
 
 from ..modules import metadata, pe

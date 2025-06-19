@@ -1,6 +1,7 @@
-tool
-====
+rpdll
+=====
 
 .. argparse::
-    :module: tool.parsers.main
+    :module: rpdll.parsers.main
     :func: _construct
+    :nodefault:

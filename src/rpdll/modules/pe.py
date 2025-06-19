@@ -36,3 +36,23 @@ def list_exported_symbols(path: Path) -> ExportedSymbols:
     pe.parse_data_directories()
 
     return [(exp.name.decode('utf-8'), exp.ordinal) for exp in pe.DIRECTORY_ENTRY_EXPORT.symbols]
+
+
+def generate_def_file(dll_path: Path, symbols: ExportedSymbols, path: Path):
+    """Generates a .def file from a PE file.
+
+    Args:
+        dll_path:
+            path to the DLL file.
+        symbols:
+            list of exported symbols.
+        path:
+            path to the output file.
+    """
+
+    with path.open('w+', encoding='utf-8') as f:
+        f.write('EXPORTS\n')
+
+        for name, ordinal in symbols:
+            f.write(f'\t{name}={dll_path.parent / dll_path.stem}.{name} @{ordinal}\n')
+

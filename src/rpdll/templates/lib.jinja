@@ -21,6 +21,11 @@ use windows::Win32::UI::WindowsAndMessaging::{
 };
 use windows_strings::s;
 
+{% for func_name, _ordinal in exported_symbols %}
+#[unsafe(no_mangle)]
+#[allow(non_snake_case)]
+fn {{ func_name }}() {}
+{% endfor %}
 
 #[unsafe(no_mangle)]
 #[allow(non_snake_case)]

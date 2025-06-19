@@ -24,7 +24,7 @@ from typing import Any
 
 import toml
 
-from .modules import template
+from .modules import pe, template
 from .modules.rusty import cargo_new_lib, is_cargo_installed
 
 
@@ -48,48 +48,61 @@ def main(namespace: Namespace) -> None:
         sys.exit(1)
 
     try:
-        # create `build.rs`.
-        with (namespace.project / 'build.rs').open('w+', encoding='utf-8') as f:
-            f.write(template.get('build').render(**{
-                'exported_symbols': namespace.exported_symbols,
-                'dll_path': str(namespace.dll_path),
-            }))
+        # add `.cargo/config.toml`.
+        cargo_conf: dict[str, Any] = {
+            'build': {
+                'target': 'x86_64-pc-windows-msvc',  # default target.
+            },
+            'target': {
+                'i686-pc-windows-msvc': {
+                    'rustflags': ['-C', f'link-arg=/DEF:{'./exports.def'}'],
+                },
+                'x86_64-pc-windows-msvc': {
+                    'rustflags': ['-C', f'link-arg=/DEF:{'./exports.def'}'],
+                },
+            },
+        }
+
+        (namespace.project / '.cargo').mkdir(parents=False, exist_ok=True)
+        with (namespace.project / '.cargo' / 'config.toml').open('w+', encoding='utf-8') as f:
+            toml.dump(cargo_conf, f)
+
+        # add `exports.def`.
+        pe.generate_def_file(namespace.dll_path, namespace.exported_symbols, namespace.project / 'exports.def')
 
         # update `src/lib.rs`.
+        (namespace.project / 'src').mkdir(parents=False, exist_ok=True)
         with (namespace.project / 'src' / 'lib.rs').open('w+', encoding='utf-8') as f:
-            f.write(template.get('lib').render())
+            f.write(template.get('lib').render({
+                'exported_symbols': namespace.exported_symbols,
+            }))
 
         # update `Cargo.toml`.
         project_conf: dict[str, Any] = toml.load(namespace.project / 'Cargo.toml')
 
-        project_conf['dependencies'] = {}
-        project_conf['dependencies']['windows'] = {}
-        project_conf['dependencies']['windows']['version'] = '0.*'
-        project_conf['dependencies']['windows']['features'] = [
-            'Win32_Foundation',
-            'Win32_Security',
-            'Win32_System_SystemServices',
-            'Win32_System_Threading',
-            'Win32_UI_WindowsAndMessaging',
-        ]
-        project_conf['dependencies']['windows-strings'] = {}
-        project_conf['dependencies']['windows-strings']['version'] = '0.4'
-
-        project_conf['lib'] = {}
-        project_conf['lib']['crate-type'] = ['cdylib']  # https://doc.rust-lang.org/reference/linkage.html#r-link.cdylib.
-
-        with (namespace.project / 'Cargo.toml').open('w+', encoding='utf-8') as f:
-            toml.dump(project_conf, f)
-
-        # update `toolchain.toml`.
-        toolchain_conf: dict[str, Any] = {
-            'toolchain': {
-                'targets': ['x86_64-pc-windows-msvc']
+        project_conf |= {
+            'dependencies': {
+                'windows': {
+                    'version': '0.*',
+                    'features': [
+                        'Win32_Foundation',
+                        'Win32_Security',
+                        'Win32_System_SystemServices',
+                        'Win32_System_Threading',
+                        'Win32_UI_WindowsAndMessaging',
+                    ],
+                },
+                'windows-strings': {
+                    'version': '0.4',
+                }
+            },
+            'lib': {
+                'crate-type': ['cdylib']  # https://doc.rust-lang.org/reference/linkage.html#r-link.cdylib.
             }
         }
 
-        with (namespace.project / 'rust-toolchain.toml').open('w+', encoding='utf-8') as f:
-            toml.dump(toolchain_conf, f)
+        with (namespace.project / 'Cargo.toml').open('w+', encoding='utf-8') as f:
+            toml.dump(project_conf, f)
 
     except Exception as e:
         shutil.rmtree(namespace.project)

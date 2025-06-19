@@ -32,7 +32,7 @@ def is_cargo_installed() -> bool:
 
 
 def cargo_new_lib(directory: Path) -> bool:
-    """Creates a new Rust library.
+    """Creates a new Rust library project.
 
     Args:
         directory:

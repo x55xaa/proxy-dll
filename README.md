@@ -25,7 +25,7 @@ $ pip install rpdll
 To generate the Rust project folder, use the `rpdll` utility:
 
 ```bash
-$ rpdll proxy -l target.dll
+$ rpdll proxy -d target.dll
 ```
 
 

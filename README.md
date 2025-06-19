@@ -28,7 +28,7 @@ To generate the Rust project folder, use the `rpdll` utility:
 $ rpdll proxy -d target.dll
 ```
 
-
+Note that this tool only works on **Windows**.
 
 
 ## Documentation
